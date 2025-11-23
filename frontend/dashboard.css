@@ -75,6 +75,22 @@ body{margin:0;background:linear-gradient(180deg,#f0faf0 0%,var(--bg) 100%);color
 @media (max-width:900px){ .dashboard-grid{grid-template-columns:repeat(2,1fr);} }
 @media (max-width:600px){ .dashboard-grid{grid-template-columns:1fr;} }
 
+/* Mobile layout tweaks */
+@media (max-width:700px){
+  .dash-header .wrap{flex-direction:column;align-items:flex-start;gap:8px}
+  .actions{width:100%;display:flex;justify-content:flex-end}
+  .actions .logout{padding:10px 14px}
+  .wrap{padding:12px}
+  .modal-panel{min-width:90vw}
+  .ai-card{min-height:140px}
+}
+
+@media (max-width:420px){
+  .dash-header .wrap{align-items:flex-start}
+  .actions{justify-content:space-between;gap:8px}
+  .user-name{font-size:0.9rem}
+}
+
 .metric-card{background:linear-gradient(180deg,#ffffff,#fbfff8);padding:18px;border-radius:12px;box-shadow:0 8px 24px rgba(2,6,23,0.06);display:flex;flex-direction:column;align-items:flex-start;gap:8px}
 .metric-card .metric-icon{font-size:20px;color:var(--accent-600);background:rgba(31,138,61,0.08);padding:10px;border-radius:10px}
 .metric-card .metric-label{font-weight:700;color:#0f172a}

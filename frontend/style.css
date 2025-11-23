@@ -204,6 +204,33 @@ a{color:inherit;text-decoration:none}
 	.card-value{font-size:22px}
 }
 
+/* Mobile improvements: stack header, increase touch targets, full-width forms */
+@media (max-width:640px){
+	.header-inner{flex-direction:column;align-items:flex-start;gap:8px;padding:12px}
+	.top-nav{flex-wrap:wrap}
+	.top-nav .nav-link{padding:10px 14px}
+	.main{padding:12px}
+	.hero-main{font-size:32px}
+	.hero-subtitle{font-size:14px}
+	.hero-ctas{flex-direction:column;align-items:stretch}
+	.hero-ctas .btn{width:100%;padding:12px}
+	.auth-wrap{max-width:100%;margin:20px 12px;padding:16px}
+	.form-actions{flex-direction:column;align-items:stretch}
+	.form-actions .btn{width:100%;padding:12px}
+	.features-grid{grid-template-columns:1fr}
+	.cards-grid{grid-template-columns:1fr}
+	.rec-card{min-width:100%}
+}
+
+/* Improve tap targets and readability on very small screens */
+@media (max-width:380px){
+	.brand .logo{font-size:18px}
+	.hero-main{font-size:28px}
+	.subtitle{font-size:12px}
+	.btn{padding:12px 14px}
+	.metric-card .metric-value{font-size:1.2rem}
+}
+
 /* minor utility */
 .muted{color:var(--muted)}
 
