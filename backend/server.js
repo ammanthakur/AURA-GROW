@@ -33,6 +33,7 @@ app.post('/api/signup', async (req, res) => {
   const user = { id: Date.now(), name, email: email.toLowerCase(), passwordHash: hash };
   users.push(user);
   await writeJsonSafe(USERS_FILE, users);
+  console.log(`signup: created user ${email.toLowerCase()} id=${user.id}`);
   return res.json({ success: true });
 });
 
@@ -42,9 +43,20 @@ app.post('/api/login', async (req, res) => {
   if(!email || !password) return res.status(400).json({ error: 'email,password required' });
   const users = await readJsonSafe(USERS_FILE);
   const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
-  if(!user) return res.status(401).json({ error: 'Invalid credentials' });
-  const ok = await bcrypt.compare(password, user.passwordHash);
-  if(!ok) return res.status(401).json({ error: 'Invalid credentials' });
+  if(!user){
+    console.warn(`login: user not found for ${email.toLowerCase()}`);
+    return res.status(401).json({ error: 'Invalid credentials' });
+  }
+  try{
+    const ok = await bcrypt.compare(password, user.passwordHash);
+    if(!ok){
+      console.warn(`login: invalid password for ${email.toLowerCase()}`);
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+  }catch(err){
+    console.error('login: bcrypt compare error', err && err.message);
+    return res.status(500).json({ error: 'Login failed' });
+  }
   const token = generateToken({ id: user.id, email: user.email, name: user.name });
   return res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
 });
