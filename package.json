@@ -1,0 +1,10 @@
+{
+  "name": "auragrowp40-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm --prefix backend install",
+    "start": "node backend/server.js",
+    "dev": "npm --prefix backend run dev"
+  }
+}
