@@ -183,7 +183,8 @@ function setupSoilSetter(){
 // fetch pollution for a given lat/lon (preset city selection)
 async function fetchPollutionForCity(lat, lon, label){
   try{
-    const res = await fetch(`${API_BASE}/api/pollution?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}`, {cache:'no-store'});
+    const token = localStorage.getItem('aura_token') || '';
+    const res = await fetch(`${API_BASE}/api/pollution?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}`, {cache:'no-store', headers: { 'Authorization': `Bearer ${token}` }});
     if(!res.ok) throw new Error('pollution fetch failed');
     const d = await res.json();
     // if API returned a reading, render it

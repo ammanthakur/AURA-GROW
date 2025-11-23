@@ -7,6 +7,8 @@ const { readJsonSafe, writeJsonSafe, USERS_FILE, READINGS_FILE } = require('./ut
 const { generateToken, verifyTokenMiddleware } = require('./auth');
 const { generatePlantRecommendations } = require('./ai');
 const rateLimit = require('express-rate-limit');
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET || 'secret-dev';
 const path = require('path');
 
 const app = express();
@@ -106,6 +108,18 @@ app.get('/api/pollution', async (req, res) => {
       city: w.name || '',
       raw: j
     };
+    // If Authorization present, attempt to associate reading with authenticated user
+    const authHeader = req.headers['authorization'] || req.headers['Authorization'];
+    if(authHeader){
+      const parts = String(authHeader).split(' ');
+      if(parts.length === 2 && parts[0].toLowerCase() === 'bearer'){
+        const token = parts[1];
+        try{
+          const decoded = jwt.verify(token, JWT_SECRET);
+          if(decoded && decoded.id) reading.userId = decoded.id;
+        }catch(e){ /* ignore invalid token */ }
+      }
+    }
 
     const readings = await readJsonSafe(READINGS_FILE);
     readings.push(reading);
@@ -121,38 +135,36 @@ app.get('/api/pollution', async (req, res) => {
 });
 
 // --- Latest reading ---
-app.get('/api/latest', async (req, res) => {
-  const readings = await readJsonSafe(READINGS_FILE);
-  if(!readings || readings.length === 0) return res.status(204).json({});
-  return res.json(readings[readings.length - 1]);
-});
-
-// --- Accept a posted reading (devices can push soil_moisture and other fields) ---
-app.post('/api/reading', async (req, res) => {
+app.post('/api/reading', verifyTokenMiddleware, async (req, res) => {
   try{
-    const body = req.body || {};
+    const { lat, lng, aqi, pm25, pm10, co, no2, o3, nh3, soil_moisture } = req.body || {};
     const readings = await readJsonSafe(READINGS_FILE);
+    const now = new Date().toISOString();
+    const userId = req.user && req.user.id;
     const reading = {
-      timestamp: Date.now(),
-      aqi: body.aqi ?? null,
-      components: body.components ?? null,
-      main_pollutant: body.main_pollutant ?? null,
-      humidity: body.humidity ?? null,
-      temp: body.temp ?? body.temperature ?? null,
-      city: body.city ?? null,
-      soil_moisture: body.soil_moisture ?? body.soil ?? null,
-      coords: body.coords ?? body.coord ?? null,
-      source: 'posted'
+      id: Date.now(),
+      timestamp: now,
+      userId: userId || null,
+      lat: lat || null,
+      lng: lng || null,
+      aqi: aqi || null,
+      pm25: pm25 || null,
+      pm10: pm10 || null,
+      co: co || null,
+      no2: no2 || null,
+      o3: o3 || null,
+      nh3: nh3 || null,
+      soil_moisture: soil_moisture || null
     };
     readings.push(reading);
-    while(readings.length > 2000) readings.shift();
     await writeJsonSafe(READINGS_FILE, readings);
-    return res.json({ success: true, reading });
+    return res.json({ ok: true, reading });
   }catch(e){
-    console.error('Error saving posted reading', e.message || e);
-    return res.status(500).json({ error: 'Could not save reading' });
+    console.error('reading post error', e && e.message);
+    return res.status(500).json({ ok: false, error: e && e.message });
   }
 });
+
 
 // (testing endpoint removed)
 
@@ -161,7 +173,21 @@ app.get('/api/history', async (req, res) => {
   const per = parseInt(req.query.per || '10', 10);
   const page = parseInt(req.query.page || '1', 10);
   const readings = await readJsonSafe(READINGS_FILE);
-  const items = readings.slice(-per * page, readings.length - per * (page - 1));
+  // If Authorization provided, return history only for that user
+  const authHeader = req.headers['authorization'] || req.headers['Authorization'];
+  let filtered = readings || [];
+  if(authHeader){
+    const parts = String(authHeader).split(' ');
+    if(parts.length === 2 && parts[0].toLowerCase() === 'bearer'){
+      const token = parts[1];
+      try{
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded && decoded.id;
+        if(userId) filtered = filtered.filter(r=> r.userId && String(r.userId) === String(userId));
+      }catch(e){ /* ignore invalid token */ }
+    }
+  }
+  const items = filtered.slice(-per * page, filtered.length - per * (page - 1));
   // ensure returned as recent-first
   const out = (items || []).slice().reverse();
   return res.json({ data: out });
@@ -178,7 +204,9 @@ app.post('/api/ai-plants', verifyTokenMiddleware, aiLimiter, async (req, res) =>
   const payload = {};
   // try fields directly from body, otherwise from body.latest, otherwise from stored latest reading
   const readings = await readJsonSafe(READINGS_FILE);
-  const storedLatest = readings && readings.length ? readings[readings.length - 1] : null;
+  const userId = req.user && req.user.id;
+  const userReadings = (readings || []).filter(r => r.userId && String(r.userId) === String(userId));
+  const storedLatest = userReadings && userReadings.length ? userReadings[userReadings.length - 1] : null;
   payload.aqi = body.aqi ?? body.AQI ?? (body.latest && body.latest.aqi) ?? (storedLatest && storedLatest.aqi) ?? null;
   payload.humidity = body.humidity ?? (body.latest && body.latest.humidity) ?? (storedLatest && storedLatest.humidity) ?? null;
   payload.temp = body.temp ?? (body.latest && body.latest.temp) ?? null;
@@ -237,7 +265,9 @@ app.post('/api/recommend', verifyTokenMiddleware, async (req, res) => {
   const body = req.body || {};
   const payload = {};
   const readings = await readJsonSafe(READINGS_FILE);
-  const storedLatest = readings && readings.length ? readings[readings.length - 1] : null;
+  const userId = req.user && req.user.id;
+  const userReadings = (readings || []).filter(r => r.userId && String(r.userId) === String(userId));
+  const storedLatest = userReadings && userReadings.length ? userReadings[userReadings.length - 1] : null;
   payload.aqi = body.aqi ?? body.AQI ?? (body.latest && body.latest.aqi) ?? (storedLatest && storedLatest.aqi) ?? null;
   payload.humidity = body.humidity ?? (body.latest && body.latest.humidity) ?? (storedLatest && storedLatest.humidity) ?? null;
   payload.temp = body.temp ?? (body.latest && body.latest.temp) ?? null;
