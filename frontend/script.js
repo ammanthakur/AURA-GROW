@@ -1,7 +1,11 @@
 // AURA GROW - script.js
 // Shared script for multi-page frontend: auth (signup/login), dashboard polling, UI rendering, redirects.
 
-const BASE = 'http://localhost:3000';
+// Use the current origin when available (works in production). Fall back to localhost for local dev.
+const BASE = (function(){
+  try{ const o = window.location.origin || ''; if(o && o !== 'null') return o.replace(/:\d+$/, ':3000') || o; }catch(e){}
+  return 'http://localhost:3000';
+})();
 const API_BASE = `${BASE}/api`;
 const ENDPOINT_LATEST = `${API_BASE}/latest`;
 const ENDPOINT_HISTORY = `${API_BASE}/history?per=10&page=1`;
