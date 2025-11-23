@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dashboard — AURA GROW</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="stylesheet" href="dashboard.css" />
+    <script src="dashboard.js" defer></script>
+  </head>
+  <body>
+    <header class="dash-header">
+      <div class="wrap">
+        <div class="brand">
+          <a href="index.html" class="brand-link"><h1 class="logo">AURA <span>GROW</span></h1></a>
+          <div class="subtitle">Welcome back to your AURA GROW Environment Panel</div>
+        </div>
+        <div class="actions">
+          <div id="location" class="location muted">—</div>
+          <div id="user-name" class="user-name">—</div>
+          <button id="logout-btn" class="logout" title="Logout">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="dash-main">
+      <div class="wrap">
+        <section class="section">
+          <div class="section-head">
+            <h2>Live Environment Snapshot</h2>
+            <p class="muted">Key metrics updated live — humidity, temperature, air quality, soil moisture and pollution level</p>
+            <div class="city-select-wrap" style="margin-top:8px">
+              <label class="muted" style="margin-right:8px;font-weight:600">View data:</label>
+              <button id="use-my-location" class="btn btn-ghost">Use my device location</button>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="metric-card" id="m-humidity">
+              <div class="metric-icon"><i class="fa-solid fa-droplet"></i></div>
+              <div class="metric-label">Humidity</div>
+              <div class="metric-value" id="humidity-value">—</div>
+              <div class="metric-sub">% RH</div>
+            </div>
+
+            <div class="metric-card" id="m-temperature">
+              <div class="metric-icon"><i class="fa-solid fa-temperature-half"></i></div>
+              <div class="metric-label">Temperature</div>
+              <div class="metric-value" id="temp-value">—</div>
+              <div class="metric-sub">°C</div>
+            </div>
+
+            <div class="metric-card" id="m-air">
+              <div class="metric-icon"><i class="fa-solid fa-wind"></i></div>
+              <div class="metric-label">Air Quality (AQI)</div>
+              <div class="metric-value" id="aqi-value">—</div>
+              <div class="metric-sub" id="aqi-category">—</div>
+            </div>
+
+            <div class="metric-card" id="m-soil">
+              <div class="metric-icon"><i class="fa-solid fa-seedling"></i></div>
+              <div class="metric-label">Soil Moisture</div>
+              <div class="metric-value" id="soil-value">—</div>
+              <div class="metric-sub">%</div>
+            </div>
+
+            <div class="metric-card metric-large" id="m-pollution">
+              <div class="metric-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <div class="metric-label">Pollution Level</div>
+              <div class="metric-value" id="pollution-score">—</div>
+              <div class="metric-sub" id="main-pollutant">Main pollutant: <span class="muted">—</span></div>
+            </div>
+
+            <div class="ai-card" id="ai-card">
+              <div class="ai-head">
+                <h3>AI Plant Recommendations</h3>
+                <p class="muted">Get plant suggestions tailored to current pollution level</p>
+              </div>
+              <div class="ai-actions">
+                <button id="rec-btn" class="btn primary">Get Recommendations</button>
+              </div>
+              <div id="rec-result" class="rec-result"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <!-- removed duplicate AI recommendation card (already present in the grid) -->
+        </section>
+
+        <!-- History removed from dashboard per user request -->
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+/* Minimal dashboard styles for AURA GROW */
+:root{
+  --bg:#f6fbf6;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#1f8a3d; /* green */
+  --accent-600:#14692b;
+  --danger:#d9534f;
+  --glass: rgba(255,255,255,0.6);
+  --radius:10px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f0faf0 0%,var(--bg) 100%);color:#0f172a;min-height:100vh}
+.wrap{max-width:1100px;margin:0 auto;padding:20px}
+.dash-header{background:transparent;padding:18px 0;border-bottom:1px solid rgba(15,23,42,0.05)}
+.dash-header .wrap{display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:700;color:var(--accent-600);letter-spacing:1px;margin:0;font-family: Montserrat, sans-serif}
+.brand-link{text-decoration:none}
+.brand-link:hover,.brand-link:focus{text-decoration:none;outline:0}
+.logo span{color:#0f172a}
+.subtitle{font-size:0.9rem;color:var(--muted);margin-top:4px}
+.actions{display:flex;align-items:center;gap:12px}
+.user-name{font-weight:600;color:#0f172a}
+.logout{background:#fff;border:1px solid rgba(15,23,42,0.08);padding:8px 12px;border-radius:8px;cursor:pointer}
+.location{font-weight:600;margin-right:8px}
+.dash-main{padding:28px 0}
+.grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
+@media (max-width:800px){.grid{grid-template-columns:1fr;}}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:0 6px 18px rgba(16,24,40,0.06);padding:18px}
+.main-aqi{display:flex;flex-direction:column;justify-content:space-between;min-height:160px}
+.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.card .title{font-weight:700}
+.updated{font-size:0.85rem;color:var(--muted)}
+.aqi-category{font-size:1.6rem;font-weight:700;padding:22px;border-radius:12px;text-align:center}
+.aqi-good{background:linear-gradient(180deg,#e6fbeb,#dff6e5);color:#0b662d}
+.aqi-moderate{background:linear-gradient(180deg,#fff9e6,#fff5da);color:#a66d00}
+.aqi-unhealthy{background:linear-gradient(180deg,#fff0f0,#ffecec);color:#7a1f1f}
+.aqi-very-unhealthy{background:linear-gradient(180deg,#f9e5ff,#f6dcff);color:#5b2a5a}
+.aqi-hazardous{background:linear-gradient(180deg,#fbeeea,#f7e0d8);color:#7b2a00}
+.weather{min-height:160px;display:flex;flex-direction:column;justify-content:space-between}
+.w-top{display:flex;flex-direction:column}
+.city{font-weight:700}
+.condition{color:var(--muted);font-size:0.95rem}
+.w-stats{display:flex;gap:12px;align-items:center}
+.temp{font-size:1.6rem;font-weight:700}
+.humidity{color:var(--muted)}
+.rec h3{margin:0 0 6px 0}
+.rec .muted{margin:0 0 12px 0}
+.rec-actions{display:flex;gap:10px;margin-bottom:12px}
+.btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.ghost{background:transparent;border:1px solid rgba(15,23,42,0.06)}
+.rec-result{min-height:80px}
+.rec-card{border-radius:8px;padding:12px;background:linear-gradient(180deg,#fbfff8,#f8fff4);margin-bottom:10px}
+.rec-card h4{margin:0 0 6px 0}
+.muted{color:var(--muted)}
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(12,18,25,0.35);z-index:50}
+.hidden{display:none}
+.modal-panel{background:#fff;padding:16px;border-radius:12px;min-width:320px;box-shadow:0 8px 30px rgba(2,6,23,0.2)}
+.modal-panel input{width:100%;padding:8px;margin:8px 0;border-radius:8px;border:1px solid rgba(15,23,42,0.08)}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
+/* small utilities */
+.muted{color:var(--muted)}
+
+/* Cards grid for dashboard */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-top:12px}
+.card-top{display:flex;align-items:center;justify-content:flex-start;margin-bottom:6px}
+.card-meta{font-weight:600;color:var(--muted)}
+.card-value{font-size:2rem;font-weight:700;color:#0f172a}
+.card-sub{color:var(--muted);margin-top:6px}
+
+/* New dashboard grid */
+.dashboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px;align-items:start}
+@media (max-width:900px){ .dashboard-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:600px){ .dashboard-grid{grid-template-columns:1fr;} }
+
+.metric-card{background:linear-gradient(180deg,#ffffff,#fbfff8);padding:18px;border-radius:12px;box-shadow:0 8px 24px rgba(2,6,23,0.06);display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.metric-card .metric-icon{font-size:20px;color:var(--accent-600);background:rgba(31,138,61,0.08);padding:10px;border-radius:10px}
+.metric-card .metric-label{font-weight:700;color:#0f172a}
+.metric-card .metric-value{font-size:1.6rem;font-weight:800}
+.metric-card .metric-sub{color:var(--muted);font-size:0.9rem}
+.metric-large{grid-column:span 2}
+.metric-large.high{background:linear-gradient(180deg,#fff5f5,#fff1f0);border:1px solid rgba(217,83,79,0.08)}
+.metric-large.high .metric-value{color:var(--danger)}
+.metric-large.moderate{background:linear-gradient(180deg,#fffdf2,#fffbe6);border:1px solid rgba(166,109,0,0.06)}
+.ai-card{background:linear-gradient(180deg,#fff,#f8fffa);padding:18px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.07);display:flex;flex-direction:column;gap:12px;min-height:180px}
+.ai-head h3{margin:0}
+.ai-actions{display:flex;gap:8px}
+.rec-result{min-height:80px}
+
+/* small polish */
+.metric-icon i{width:26px;height:26px;display:flex;align-items:center;justify-content:center}
+.metric-card .muted{color:var(--muted)}
+
+/* Pollution summary badge */
+.pollution-summary{display:flex;align-items:center}
+.pollution-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;width:96px;height:64px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfffb);box-shadow:0 6px 18px rgba(16,24,40,0.04);border:1px solid rgba(15,23,42,0.03)}
+.pollution-badge .badge-label{font-size:0.8rem;color:var(--muted)}
+.pollution-badge .badge-value{font-weight:800;font-size:1.2rem;color:var(--accent-600)}
+.pollution-badge.high{background:linear-gradient(180deg,#fff5f5,#fff1f0);color:var(--danger)}
+.pollution-badge.moderate{background:linear-gradient(180deg,#fffdf2,#fffbe6)}
+.main-pollutant{font-weight:600}
+
+/* History removed — styles kept elsewhere if needed */

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AURA GROW — Atmospheric Urban Renewable And Growth</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <!-- Font Awesome (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body data-page="index">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <a href="index.html" class="brand-link"><h1 class="logo">AURA <span class="grow">GROW</span></h1></a>
+          <div class="acronym">Atmospheric Urban Renewable And Growth</div>
+        </div>
+        <nav class="top-nav" aria-label="Main navigation">
+          <a href="login.html" class="nav-link">Login</a>
+        </nav>
+        
+      </div>
+    </header>
+
+    <main class="main container">
+      <section class="hero hero-large">
+        <div class="hero-inner">
+          <div class="hero-text">
+            <h1 class="hero-main">AURA GROW</h1>
+            <div class="hero-subtitle">"Atmospheric Urban Renewable And Growth"</div>
+            <p class="hero-tag">Smart Pollution Monitoring &amp; AI-Powered Plant Advisor</p>
+            <!-- Hero CTA removed per request; Login remains in header -->
+          </div>
+          <div class="hero-visual" aria-hidden="false">
+            <div class="hero-sticker" role="img" aria-label="AURA GROW sticker illustration">
+              <!-- Decorative sticker SVG representing growth and air -- feel free to replace with an asset -->
+              <svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" class="sticker-svg">
+                <defs>
+                  <linearGradient id="sgrad" x1="0" x2="1">
+                    <stop offset="0" stop-color="#67c77f" />
+                    <stop offset="1" stop-color="#1e7a3a" />
+                  </linearGradient>
+                </defs>
+                <rect width="320" height="320" rx="28" fill="url(#sgrad)" opacity="0.08" />
+                <g transform="translate(40,36)">
+                  <circle cx="88" cy="88" r="66" fill="#ffffff" opacity="0.9" />
+                  <path d="M60 120c30-20 66-10 88 6" stroke="#67c77f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M90 42c0 18-24 24-24 48 0 18 14 36 24 36s24-18 24-36c0-24-24-30-24-48z" fill="#1e7a3a" opacity="0.95" transform="translate(12,8)" />
+                  <text x="38" y="190" font-family="Inter, Arial" font-size="18" fill="#15411c" font-weight="700">AURA GROW</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section features">
+        <h3>Features</h3>
+        <div class="features-grid">
+          <div class="feature-card fade-in"><i class="fas fa-wind icon-lg"></i><h4>Real-time pollution monitoring</h4><p>Live AQI data from reliable APIs and sensor integrations.</p></div>
+          <div class="feature-card fade-in"><i class="fas fa-brain icon-lg"></i><h4>AI-powered plant suggestions</h4><p>Personalized plant recommendations tuned to your local environment and needs.</p></div>
+          <div class="feature-card fade-in"><i class="fas fa-cloud-sun icon-lg"></i><h4>Weather-integrated analysis</h4><p>Combines weather history, humidity and temperature with pollution data for smarter advice.</p></div>
+          <div class="feature-card fade-in"><i class="fas fa-user-shield icon-lg"></i><h4>Personalized recommendations</h4><p>Tailored guidance including number, type, and placement of plants.</p></div>
+          <div class="feature-card fade-in"><i class="fas fa-tachometer-alt icon-lg"></i><h4>Dashboard access after login</h4><p>Clean, minimal dashboard to view Air Quality Status and fetch AI suggestions.</p></div>
+        </div>
+      </section>
+
+      <section class="section long-desc">
+        <h3>About the Project</h3>
+        <p>“AURA GROW is an innovative, AI-powered environmental monitoring and plant-recommendation platform designed to tackle rising air pollution using a combination of real-time data, intelligent analysis, and nature-based solutions. This project unifies online pollution APIs, live weather intelligence, and advanced AI models to deliver a smart ecosystem that understands your surrounding environment and recommends the most effective plants for purifying the air around you.</p>
+
+        <h3>Why Pollution Monitoring Matters</h3>
+        <p>As pollution increases across urban and rural regions, identifying quick and sustainable solutions has become a critical need. AURA GROW aims to bridge this gap by transforming raw environmental data into actionable insights. By pulling live AQI, humidity, and temperature data from reliable online APIs, the system provides users with an accurate understanding of their air quality—without needing any hardware sensors or external devices. This makes AURA GROW accessible, scalable, and instantly deployable.</p>
+
+        <h3>How AURA GROW Works</h3>
+        <p>Our Node.js backend processes this environmental data, classifying the air quality into categories such as Good, Moderate, Unhealthy, Very Unhealthy, and Hazardous. Based on these values, users can instantly track how safe or unsafe their surrounding environment is.</p>
+
+        <h3>AI Recommendation Engine</h3>
+        <p>The highlight of AURA GROW is its AI Plant Recommendation Engine. Powered by models like OpenAI GPT-4o-mini, the system analyzes pollution conditions, weather history, humidity, temperature, and location to recommend the best air-purifying plants for that specific environment. These recommendations tell users:</p>
+        <p>• Which plants are most effective<br>
+        • Why they are suitable for that region<br>
+        • How many plants are needed<br>
+        • Whether indoor, outdoor, shrub or tree<br>
+        • Additional environmental improvement suggestions</p>
+        <p>All recommendations are personalized and generated in real-time.</p>
+
+        <h3>Environmental Impact</h3>
+        <p>AURA GROW is not simply an information tool—it is a complete environmental assistant. After logging in, the user sees a clean, minimal dashboard showing Air Quality Status and a button to fetch AI-based plant recommendations. With a single click, the system analyzes live weather and pollution and delivers customized suggestions.</p>
+
+        <h3>Vision for Smart Green Cities</h3>
+        <p>By combining IoT concepts, AI intelligence, online environmental data, and plant-based purification strategies, AURA GROW demonstrates how technology and nature can work together to build healthier, smarter and greener modern environments.”</p>
+      </section>
+
+      <section class="section mission">
+        <h3>Mission &amp; Vision</h3>
+        <p>We enable communities and individuals to understand their air and act—using intelligent insights and nature-first solutions. AURA GROW envisions connected cities where data informs living green infrastructure, making urban spaces healthier and more resilient.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="credits">© <strong>AURA GROW</strong> — Built for environmental insight</div>
+      </div>
+    </footer>
+    
+  </body>
+</html>

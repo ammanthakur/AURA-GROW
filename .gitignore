@@ -1,0 +1,11 @@
+node_modules/
+backend/.env
+backend/data/*.json
+/.vscode/
+*.log
+dist/
+build/
+/.DS_Store
+env.local
+.env
+.env.*
